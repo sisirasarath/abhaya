@@ -705,12 +705,15 @@ export const AdminLoginPage = () => {
       await loginAdmin(username.trim(), password);
       navigate("/admin/dashboard");
     } catch (err) {
-      setErrorMsg(
-        err.response?.data?.error ||
-          err.response?.data?.message ||
-          err.response?.data?.detail ||
-          "Invalid administrator username or password."
-      );
+      const apiErr = err.response?.data;
+      const resolvedMsg =
+        (typeof apiErr?.error === "string" && apiErr.error) ||
+        (typeof apiErr?.message === "string" && apiErr.message) ||
+        (typeof apiErr?.detail === "string" && apiErr.detail) ||
+        (!err.response
+          ? "Unable to reach the ABHAYA backend server. Please verify backend deployment and CORS settings."
+          : "Invalid administrator username or password.");
+      setErrorMsg(resolvedMsg);
     } finally {
       setLoading(false);
     }

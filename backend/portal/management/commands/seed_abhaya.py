@@ -7,6 +7,7 @@ Management command to seed ABHAYA – Women's Safety and Support Portal with:
 - Sample Female Student Accounts (Approved & Pending Verification)
 - Sample Grievances with Chronological Timelines, Assignments & Notifications
 """
+import getpass
 import os
 from datetime import timedelta
 from django.core.management.base import BaseCommand
@@ -32,6 +33,13 @@ from portal.models import (
 
 class Command(BaseCommand):
     help = "Seeds initial categories, helplines, role-based admins, students, and sample complaints for ABHAYA."
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--interactive-admin',
+            action='store_true',
+            help='Prompt interactively for administrator username, email, and password in the terminal.',
+        )
 
     @transaction.atomic
     def handle(self, *args, **options):
@@ -306,13 +314,25 @@ class Command(BaseCommand):
                 defaults=hdata,
             )
 
-        # 4. Single Unified Administrator Account (configured via environment variables)
-        admin_username = (os.environ.get('ABHAYA_ADMIN_USERNAME') or 'abhayasfi').strip()
-        admin_email = (
-            os.environ.get('ABHAYA_ADMIN_EMAIL')
-            or (admin_username if '@' in admin_username else f'{admin_username}@abhaya.edu.in')
-        ).strip().lower()
+        # 4. Single Unified Administrator Account (configured via environment variables or interactive prompt)
+        admin_username = (os.environ.get('ABHAYA_ADMIN_USERNAME') or '').strip()
+        admin_email = (os.environ.get('ABHAYA_ADMIN_EMAIL') or '').strip().lower()
         admin_password = os.environ.get('ABHAYA_ADMIN_PASSWORD')
+
+        if options.get('interactive_admin'):
+            if not admin_username:
+                admin_username = input('Enter Administrator Username [abhayasfi]: ').strip() or 'abhayasfi'
+            if not admin_email:
+                default_email = admin_username if '@' in admin_username else f'{admin_username}@abhaya.edu.in'
+                admin_email = (input(f'Enter Administrator Email [{default_email}]: ').strip() or default_email).lower()
+            if not admin_password:
+                admin_password = getpass.getpass('Enter New Strong Administrator Password (hidden): ')
+
+        if not admin_username:
+            admin_username = 'abhayasfi'
+        if not admin_email:
+            admin_email = admin_username if '@' in admin_username else f'{admin_username}@abhaya.edu.in'
+        admin_email = admin_email.strip().lower()
 
         admins_data = [
             {
@@ -327,37 +347,21 @@ class Command(BaseCommand):
             },
         ]
 
-        # Deactivate legacy demo admin logins so only one admin login exists
-        PortalUser.objects.filter(
-            role='ADMIN',
-            email__in=[
-                'admin@abhaya.edu.in',
-                'womenscell@abhaya.edu.in',
-                'warden@abhaya.edu.in',
-                'handler@abhaya.edu.in',
-            ],
-        ).update(is_active=False)
-        Administrator.objects.filter(
-            email__in=[
-                'admin@abhaya.edu.in',
-                'womenscell@abhaya.edu.in',
-                'warden@abhaya.edu.in',
-                'handler@abhaya.edu.in',
-            ],
-        ).update(is_active_admin=False)
-
         admin_objs = {}
         for adata in admins_data:
-            user, created = PortalUser.objects.get_or_create(
-                email=adata['email'],
-                defaults={
-                    'full_name': adata['full_name'],
-                    'role': 'ADMIN',
-                    'is_staff': True,
-                    'is_superuser': True,
-                    'is_active': True,
-                },
-            )
+            user = PortalUser.objects.filter(email__iexact=adata['email']).first()
+            created = False
+            if not user:
+                user = PortalUser(
+                    email=adata['email'],
+                    full_name=adata['full_name'],
+                    role='ADMIN',
+                    is_staff=True,
+                    is_superuser=True,
+                    is_active=True,
+                )
+                created = True
+            user.email = adata['email']
             user.full_name = adata['full_name']
             user.role = 'ADMIN'
             user.is_staff = True
@@ -369,7 +373,7 @@ class Command(BaseCommand):
                 user.set_unusable_password()
                 self.stdout.write(
                     self.style.WARNING(
-                        "Administrator user created without a password. Set ABHAYA_ADMIN_PASSWORD or use Django shell to set the password."
+                        "Administrator user created without a password. Set ABHAYA_ADMIN_PASSWORD or use --interactive-admin to set the password."
                     )
                 )
             user.save()
@@ -388,6 +392,11 @@ class Command(BaseCommand):
                     'is_active_admin': True,
                 },
             )
+
+            # Deactivate any other administrator accounts to prevent duplicate active admin accounts
+            PortalUser.objects.filter(role='ADMIN').exclude(id=user.id).update(is_active=False)
+            Administrator.objects.exclude(id=adm_obj.id).update(is_active_admin=False)
+
             admin_objs['SUPER_ADMIN'] = adm_obj
             admin_objs['WOMENS_CELL_ADMIN'] = adm_obj
             admin_objs['HOSTEL_ADMIN'] = adm_obj

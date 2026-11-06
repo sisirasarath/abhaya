@@ -39,10 +39,14 @@ ALLOWED_HOSTS = [
     host.strip()
     for host in os.environ.get(
         'DJANGO_ALLOWED_HOSTS',
-        '.vercel.app,localhost,127.0.0.1,testserver' if IS_VERCEL else 'localhost,127.0.0.1,testserver'
+        '.vercel.app,abhaya-73rt.vercel.app,localhost,127.0.0.1,testserver'
+        if IS_VERCEL
+        else 'localhost,127.0.0.1,testserver'
     ).split(',')
     if host.strip()
 ]
+if IS_VERCEL and '.vercel.app' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('.vercel.app')
 
 for _vercel_host_var in ('VERCEL_URL', 'VERCEL_BRANCH_URL', 'VERCEL_PROJECT_PRODUCTION_URL'):
     _v_host = os.environ.get(_vercel_host_var, '').strip()
@@ -114,9 +118,11 @@ def _parse_database_url(url: str) -> dict:
             f"Unsupported DATABASE_URL scheme '{scheme}'. Expected postgresql://."
         )
     query_params = parse_qs(parsed.query)
+    ssl_require_env = os.environ.get('DB_SSL_REQUIRE', 'True' if (IS_VERCEL or not DEBUG) else 'False').strip().lower() in ('true', '1', 'yes')
+    default_sslmode = 'require' if (ssl_require_env or IS_VERCEL or not DEBUG) else 'prefer'
     sslmode = (
         query_params.get('sslmode', [None])[0]
-        or os.environ.get('DB_SSLMODE', 'require' if IS_VERCEL or not DEBUG else 'prefer')
+        or os.environ.get('DB_SSLMODE', default_sslmode)
     )
     options = {}
     if sslmode:
@@ -299,24 +305,31 @@ _default_cookie_samesite = 'None' if JWT_COOKIE_SECURE else 'Lax'
 JWT_COOKIE_SAMESITE = os.environ.get('JWT_COOKIE_SAMESITE', _default_cookie_samesite).strip()
 JWT_COOKIE_HTTP_ONLY = True
 
+_default_cors_origins = (
+    'https://abhaya-womens-safety.vercel.app,'
+    'http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000,http://127.0.0.1:8000'
+)
 CORS_ALLOWED_ORIGINS = [
     origin.strip().rstrip('/')
-    for origin in os.environ.get(
-        'CORS_ALLOWED_ORIGINS',
-        'http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000,http://127.0.0.1:8000'
-    ).split(',')
+    for origin in os.environ.get('CORS_ALLOWED_ORIGINS', _default_cors_origins).split(',')
     if origin.strip()
 ]
+if 'https://abhaya-womens-safety.vercel.app' not in CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS.append('https://abhaya-womens-safety.vercel.app')
 CORS_ALLOW_CREDENTIALS = True
 
+_default_csrf_origins = (
+    'https://abhaya-womens-safety.vercel.app,https://abhaya-73rt.vercel.app,'
+    'http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000,http://127.0.0.1:8000'
+)
 CSRF_TRUSTED_ORIGINS = [
     origin.strip().rstrip('/')
-    for origin in os.environ.get(
-        'CSRF_TRUSTED_ORIGINS',
-        'http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000,http://127.0.0.1:8000'
-    ).split(',')
+    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', _default_csrf_origins).split(',')
     if origin.strip()
 ]
+for _prod_origin in ('https://abhaya-womens-safety.vercel.app', 'https://abhaya-73rt.vercel.app'):
+    if _prod_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(_prod_origin)
 
 for _vercel_host_var in ('VERCEL_URL', 'VERCEL_BRANCH_URL', 'VERCEL_PROJECT_PRODUCTION_URL'):
     _v_host = os.environ.get(_vercel_host_var, '').strip()

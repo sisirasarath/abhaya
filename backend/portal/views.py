@@ -355,9 +355,16 @@ class AdminLoginAPIView(APIView):
         if '@' not in lookup:
             candidate_emails.append(f"{lookup}@abhaya.edu.in")
 
+        email_query = Q(email__iexact=lookup) | Q(full_name__iexact=identifier)
+        for cand in candidate_emails:
+            email_query |= Q(email__iexact=cand)
+        if '@' not in lookup:
+            email_query |= Q(email__istartswith=f"{lookup}@")
+
         user_obj = (
             PortalUser.objects.filter(role='ADMIN', is_active=True)
-            .filter(Q(email__in=candidate_emails) | Q(full_name__iexact=identifier))
+            .filter(email_query)
+            .order_by('-is_superuser', 'id')
             .first()
         )
 
