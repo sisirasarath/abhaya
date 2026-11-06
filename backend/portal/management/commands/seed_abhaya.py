@@ -7,6 +7,7 @@ Management command to seed ABHAYA – Women's Safety and Support Portal with:
 - Sample Female Student Accounts (Approved & Pending Verification)
 - Sample Grievances with Chronological Timelines, Assignments & Notifications
 """
+import os
 from datetime import timedelta
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -305,11 +306,17 @@ class Command(BaseCommand):
                 defaults=hdata,
             )
 
-        # 4. Single Unified Administrator Account (username: abhayasfi, password: Abhayasfi@123)
+        # 4. Single Unified Administrator Account (configured via environment variables)
+        admin_username = (os.environ.get('ABHAYA_ADMIN_USERNAME') or 'abhayasfi').strip()
+        admin_email = (
+            os.environ.get('ABHAYA_ADMIN_EMAIL')
+            or (admin_username if '@' in admin_username else f'{admin_username}@abhaya.edu.in')
+        ).strip().lower()
+        admin_password = os.environ.get('ABHAYA_ADMIN_PASSWORD')
+
         admins_data = [
             {
-                'email': 'abhayasfi@abhaya.edu.in',
-                'password': 'Abhayasfi@123',
+                'email': admin_email,
                 'full_name': 'ABHAYA Central Administrator (SFI MACE Unit)',
                 'phone_number': '+91-9400000001',
                 'designation': 'Central Administrator & Governance Desk',
@@ -356,7 +363,15 @@ class Command(BaseCommand):
             user.is_staff = True
             user.is_superuser = True
             user.is_active = True
-            user.set_password(adata['password'])
+            if admin_password:
+                user.set_password(admin_password)
+            elif created:
+                user.set_unusable_password()
+                self.stdout.write(
+                    self.style.WARNING(
+                        "Administrator user created without a password. Set ABHAYA_ADMIN_PASSWORD or use Django shell to set the password."
+                    )
+                )
             user.save()
 
             adm_obj, _ = Administrator.objects.update_or_create(

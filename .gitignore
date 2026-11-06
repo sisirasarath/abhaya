@@ -13,11 +13,13 @@ backend/__pycache__/
 *.pyo
 *.pyd
 
-# Environment variables
+# Environment variables & local SQLite databases
 .env
 .env.local
 .env.*.local
 backend/.env
+*.sqlite3
+backend/*.sqlite3
 
 # Virtual environments
 .venv/

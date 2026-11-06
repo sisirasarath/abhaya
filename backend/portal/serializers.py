@@ -30,7 +30,11 @@ from .permissions import can_admin_view_student_identity
 
 
 def validate_uploaded_file(uploaded_file):
-    """Validates file size, extension, and image integrity (if image)."""
+    """Validates file size, extension, external storage availability on serverless, and image integrity."""
+    if getattr(settings, 'IS_VERCEL', False) and not getattr(settings, 'AWS_STORAGE_BUCKET_NAME', ''):
+        raise serializers.ValidationError(
+            "File attachments require external S3-compatible object storage (AWS_STORAGE_BUCKET_NAME) to be configured in production."
+        )
     max_size = getattr(settings, 'MAX_ATTACHMENT_SIZE_BYTES', 5 * 1024 * 1024)
     if uploaded_file.size > max_size:
         raise serializers.ValidationError(

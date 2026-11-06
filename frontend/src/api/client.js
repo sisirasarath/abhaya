@@ -1,7 +1,17 @@
 import axios from 'axios';
 
+const normalizeApiBaseUrl = (rawUrl) => {
+  const trimmed = (rawUrl || '').trim().replace(/\/+$/, '');
+  if (!trimmed) {
+    return '/api';
+  }
+  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+};
+
+export const API_BASE_URL = normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL);
+
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -30,7 +40,11 @@ apiClient.interceptors.response.use(
       const refresh = localStorage.getItem('abhaya_refresh_token');
       if (refresh) {
         try {
-          const res = await axios.post('/api/auth/token/refresh/', { refresh }, { withCredentials: true });
+          const res = await axios.post(
+            `${API_BASE_URL}/auth/token/refresh/`,
+            { refresh },
+            { withCredentials: true }
+          );
           if (res.data?.access) {
             localStorage.setItem('abhaya_access_token', res.data.access);
             originalRequest.headers.Authorization = `Bearer ${res.data.access}`;
@@ -47,4 +61,3 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-
