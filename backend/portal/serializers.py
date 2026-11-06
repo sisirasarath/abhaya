@@ -140,7 +140,7 @@ class StudentRegistrationSerializer(serializers.Serializer):
     def validate_email(self, value):
         email = value.lower().strip()
         if PortalUser.objects.filter(email=email).exists() or Student.objects.filter(email=email).exists():
-            raise serializers.ValidationError('An account with this college email address already exists.')
+            raise serializers.ValidationError('An account with this registered email address already exists.')
         portal_setting = PortalSetting.objects.first()
         if portal_setting and portal_setting.allowed_email_domains.strip():
             domains = [

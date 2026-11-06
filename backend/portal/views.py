@@ -242,7 +242,7 @@ class StudentLoginAPIView(APIView):
 
         if not identifier or not password:
             return Response(
-                {'error': 'Please provide both college email (or admission number) and password.', 'message': 'Please provide both college email (or admission number) and password.'},
+                {'error': 'Please provide both registered email (or admission number) and password.', 'message': 'Please provide both registered email (or admission number) and password.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -488,7 +488,7 @@ class ForgotPasswordAPIView(APIView):
         email = (request.data.get('email') or '').lower().strip()
         if not email:
             return Response(
-                {'error': True, 'message': 'Please enter your registered college email address.'},
+                {'error': True, 'message': 'Please enter your registered email address.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         user = PortalUser.objects.filter(email=email).first()
@@ -1446,7 +1446,7 @@ class AdminRosterListCreateAPIView(APIView):
 
         if not adm or not full_name or not email:
             return Response(
-                {'error': True, 'message': 'Admission number, full name, and college email are required.'},
+                {'error': True, 'message': 'Admission number, full name, and registered email are required.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

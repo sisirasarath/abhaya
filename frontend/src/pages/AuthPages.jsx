@@ -160,13 +160,13 @@ export const StudentLoginPage = () => {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="label-editorial">College Email</label>
+                <label className="label-editorial">Registered Email</label>
                 <input
                   type="text"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="student@college.edu.in"
+                  placeholder="Enter your registered email"
                   className="input-editorial"
                 />
               </div>
@@ -252,13 +252,13 @@ export const StudentLoginPage = () => {
             {resetStep === 1 ? (
               <form onSubmit={handleRequestReset} className="space-y-4">
                 <div>
-                  <label className="label-editorial">College Email</label>
+                  <label className="label-editorial">Registered Email</label>
                   <input
                     type="email"
                     required
                     value={resetEmail}
                     onChange={(e) => setResetEmail(e.target.value)}
-                    placeholder="student@college.edu.in"
+                    placeholder="Enter your registered email"
                     className="input-editorial"
                   />
                 </div>
@@ -503,14 +503,14 @@ export const StudentRegisterPage = () => {
                 </div>
 
                 <div>
-                  <label className="label-editorial">Email Address *</label>
+                  <label className="label-editorial">Registered Email *</label>
                   <input
                     type="email"
                     name="email"
                     required
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="name@college.edu.in"
+                    placeholder="Enter your email address"
                     className="input-editorial"
                   />
                 </div>

@@ -282,7 +282,7 @@ class Complaint(models.Model):
     )
     CONTACT_METHOD_CHOICES = (
         ('PORTAL_ONLY', 'Secure Portal Updates Only'),
-        ('EMAIL', 'College Email'),
+        ('EMAIL', 'Registered Email'),
         ('PHONE', 'Phone Call / SMS'),
         ('IN_PERSON', "In-Person Meeting with Women's Cell / ICC"),
     )

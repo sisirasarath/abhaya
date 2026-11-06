@@ -601,7 +601,7 @@ const BaseReportForm = ({ defaultCategoryCode = "HOSTEL", pageTitle = "Report an
                   className="input-editorial"
                 >
                   <option value="PORTAL_ONLY">Portal Updates Only</option>
-                  <option value="EMAIL">College Email</option>
+                  <option value="EMAIL">Registered Email</option>
                   <option value="PHONE">Phone Call</option>
                   <option value="IN_PERSON_ICC">In-Person Meeting (Women&apos;s Cell / ICC)</option>
                 </select>
@@ -1003,7 +1003,7 @@ export const StudentProfilePage = () => {
                 </span>
               </div>
               <div>
-                <span className="text-xs text-[#44413E] block">College Email</span>
+                <span className="text-xs text-[#44413E] block">Registered Email</span>
                 <span className="font-medium text-[#171717]">{profile.email}</span>
               </div>
               <div>

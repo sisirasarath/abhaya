@@ -874,7 +874,7 @@ export const PrivacyPolicyPage = () => {
               1. Institutional Eligibility &amp; Data Collection
             </h2>
             <p className="text-[#171717]/85">
-              ABHAYA collects only the student credentials required to verify female student eligibility (Full Name, College Email, Admission Number, Department, Semester, Residence Status, and Phone Number). Public visitors can browse the website and Emergency Helplines without providing any personal data.
+              ABHAYA collects only the student credentials required to verify female student eligibility (Full Name, Registered Email, Admission Number, Department, Semester, Residence Status, and Phone Number). Public visitors can browse the website and Emergency Helplines without providing any personal data.
             </p>
           </section>
 
