@@ -70,7 +70,7 @@ export const StudentLoginPage = () => {
         data.message ||
           (typeof data.error === "string" ? data.error : "") ||
           data.detail ||
-          "Unable to sign in. Please check your registered email (or admission number) and password."
+          "Unable to sign in. Please check your registered email and password."
       );
     } finally {
       setLoading(false);
@@ -340,7 +340,6 @@ export const StudentRegisterPage = () => {
     full_name: "",
     gender: "",
     email: "",
-    admission_number: "",
     department: DEPARTMENTS[0],
     year_semester: SEMESTERS[2],
     phone_number: "",
@@ -512,21 +511,6 @@ export const StudentRegisterPage = () => {
                     onChange={handleChange}
                     placeholder="Enter your email address"
                     className="input-editorial"
-                  />
-                </div>
-
-                <div>
-                  <label className="label-editorial">
-                    Admission / Registration Number *
-                  </label>
-                  <input
-                    type="text"
-                    name="admission_number"
-                    required
-                    value={form.admission_number}
-                    onChange={handleChange}
-                    placeholder="e.g. MAC23CD057"
-                    className="input-editorial uppercase"
                   />
                 </div>
 

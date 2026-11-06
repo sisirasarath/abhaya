@@ -629,7 +629,7 @@ const BaseReportForm = ({ defaultCategoryCode = "HOSTEL", pageTitle = "Report an
               <strong className="text-[#171717] font-medium">
                 Who can access this information:
               </strong>{" "}
-              When you choose Confidential, your name, admission number, email, and phone number are redacted at the server level for general handlers and hostel wardens, and remain visible only to the Super Administrator and Women&apos;s Cell / ICC Presiding Officer.
+              When you choose Confidential, your name, email, and phone number are redacted at the server level for general handlers and hostel wardens, and remain visible only to the Super Administrator and Women&apos;s Cell / ICC Presiding Officer.
             </div>
 
             <div>
@@ -1005,14 +1005,6 @@ export const StudentProfilePage = () => {
               <div>
                 <span className="text-xs text-[#44413E] block">Registered Email</span>
                 <span className="font-medium text-[#171717]">{profile.email}</span>
-              </div>
-              <div>
-                <span className="text-xs text-[#44413E] block">
-                  Admission Number
-                </span>
-                <span className="font-medium text-[#171717]">
-                  {profile.admission_number}
-                </span>
               </div>
               <div>
                 <span className="text-xs text-[#44413E] block">Department</span>

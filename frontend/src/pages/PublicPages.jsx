@@ -874,7 +874,7 @@ export const PrivacyPolicyPage = () => {
               1. Institutional Eligibility &amp; Data Collection
             </h2>
             <p className="text-[#171717]/85">
-              ABHAYA collects only the student credentials required to verify female student eligibility (Full Name, Registered Email, Admission Number, Department, Semester, Residence Status, and Phone Number). Public visitors can browse the website and Emergency Helplines without providing any personal data.
+              ABHAYA collects only the student credentials required to verify female student eligibility (Full Name, Registered Email, Department, Semester, Residence Status, and Phone Number). Public visitors can browse the website and Emergency Helplines without providing any personal data.
             </p>
           </section>
 
@@ -883,7 +883,7 @@ export const PrivacyPolicyPage = () => {
               2. Backend-Enforced Identity Confidentiality
             </h2>
             <p className="text-[#171717]/85">
-              When a student selects the Confidential option on a complaint, the backend API automatically redacts the student&apos;s name, email, admission number, and phone number for general complaint handlers and hostel administrators. Only authorized presiding officers (Super Administrator / Women&apos;s Cell &amp; ICC Administrator) can view confidential identity records when legally required.
+              When a student selects the Confidential option on a complaint, the backend API automatically redacts the student&apos;s name, email, and phone number for general complaint handlers and hostel administrators. Only authorized presiding officers (Super Administrator / Women&apos;s Cell &amp; ICC Administrator) can view confidential identity records when legally required.
             </p>
           </section>
 

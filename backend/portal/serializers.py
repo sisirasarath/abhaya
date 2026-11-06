@@ -3,6 +3,7 @@ Serializers for ABHAYA – Women's Safety and Support Portal.
 Enforces strict backend confidentiality redaction, input validation, and role-based serialization.
 """
 import os
+import uuid
 from PIL import Image
 from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
@@ -120,7 +121,7 @@ class StudentRegistrationSerializer(serializers.Serializer):
     full_name = serializers.CharField(max_length=150)
     gender = serializers.CharField(max_length=20, required=False, default='FEMALE')
     email = serializers.EmailField()
-    admission_number = serializers.CharField(max_length=50)
+    admission_number = serializers.CharField(max_length=50, required=False, allow_blank=True, default='')
     department = serializers.CharField(max_length=120)
     year_semester = serializers.CharField(max_length=60)
     phone_number = serializers.CharField(max_length=25)
@@ -156,10 +157,12 @@ class StudentRegistrationSerializer(serializers.Serializer):
         return email
 
     def validate_admission_number(self, value):
-        adm = value.upper().strip()
+        adm = (value or '').upper().strip()
+        if not adm:
+            return ''
         if Student.objects.filter(admission_number=adm).exists():
             raise serializers.ValidationError(
-                'A student account with this admission/registration number is already registered.'
+                'A student account with this registration reference is already registered.'
             )
         return adm
 
@@ -176,7 +179,11 @@ class StudentRegistrationSerializer(serializers.Serializer):
     @transaction.atomic
     def create(self, validated_data):
         email = validated_data['email']
-        adm_no = validated_data['admission_number']
+        adm_no = (validated_data.get('admission_number') or '').strip()
+        if not adm_no:
+            adm_no = f"ABH-{uuid.uuid4().hex[:8].upper()}"
+            while Student.objects.filter(admission_number=adm_no).exists():
+                adm_no = f"ABH-{uuid.uuid4().hex[:8].upper()}"
         full_name = validated_data['full_name'].strip()
 
         roster_entry = EligibleStudentRoster.objects.filter(

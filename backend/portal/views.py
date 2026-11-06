@@ -215,7 +215,7 @@ class StudentRegisterAPIView(APIView):
             'Registration Completed – Welcome to ABHAYA',
             (
                 f"Dear {student.full_name},\n\n"
-                f"Your female student account on ABHAYA (Admission No: {student.admission_number}) has been created and activated.\n"
+                f"Your female student account on ABHAYA ({student.email}) has been created and activated.\n"
                 f"You can now sign in to the student portal immediately."
             ),
         )
@@ -242,7 +242,7 @@ class StudentLoginAPIView(APIView):
 
         if not identifier or not password:
             return Response(
-                {'error': 'Please provide both registered email (or admission number) and password.', 'message': 'Please provide both registered email (or admission number) and password.'},
+                {'error': 'Please provide both registered email and password.', 'message': 'Please provide both registered email and password.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -254,7 +254,7 @@ class StudentLoginAPIView(APIView):
 
         if not user_obj or not user_obj.check_password(password):
             return Response(
-                {'error': 'Invalid email/admission number or password.', 'message': 'Invalid email/admission number or password.'},
+                {'error': 'Invalid registered email or password.', 'message': 'Invalid registered email or password.'},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
