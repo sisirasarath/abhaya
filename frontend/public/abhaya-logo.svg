@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 560" fill="none">
+  <g stroke="#171717" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M170 230 C155 155, 195 75, 260 65 C325 75, 365 155, 350 230"
+      stroke-width="1.2"
+      stroke-dasharray="2 4"
+      opacity="0.45"
+    />
+    <path
+      d="M225 92 C245 72, 282 74, 300 98 C314 116, 316 142, 304 168 C296 184, 282 198, 265 204"
+      stroke-width="2"
+    />
+    <path
+      d="M252 94 C248 110, 240 125, 235 138 C232 145, 236 149, 243 151 C239 156, 242 161, 247 163 C242 167, 245 176, 255 180 C266 184, 275 178, 280 172"
+      stroke-width="2.1"
+    />
+    <path d="M252 124 C259 120, 268 120, 274 124" stroke-width="1.6" />
+    <path d="M254 132 C260 136, 267 136, 272 132" stroke-width="1.6" />
+    <path
+      d="M225 92 C202 108, 192 140, 202 174 C210 198, 228 214, 246 226"
+      stroke-width="1.8"
+    />
+    <path
+      d="M286 105 C304 125, 306 160, 290 192 C280 210, 268 220, 260 228"
+      stroke-width="1.6"
+    />
+    <path
+      d="M260 192 C248 214, 244 238, 260 268 C276 238, 272 214, 260 192 Z"
+      stroke-width="2.2"
+      fill="#FAF9F5"
+    />
+    <path
+      d="M256 266 C236 254, 224 234, 230 210 C242 222, 250 240, 256 266 Z"
+      stroke-width="2"
+      fill="#FAF9F5"
+    />
+    <path
+      d="M264 266 C284 254, 296 234, 290 210 C278 222, 270 240, 264 266 Z"
+      stroke-width="2"
+      fill="#FAF9F5"
+    />
+    <path
+      d="M252 269 C226 264, 206 248, 200 226 C218 232, 236 246, 252 269 Z"
+      stroke-width="1.8"
+    />
+    <path
+      d="M268 269 C294 264, 314 248, 320 226 C302 232, 284 246, 268 269 Z"
+      stroke-width="1.8"
+    />
+    <path d="M216 278 C238 272, 282 272, 304 278" stroke-width="1.8" />
+    <path d="M260 268 L260 292" stroke-width="1.6" />
+    <circle cx="260" cy="54" r="2.5" fill="#783D43" stroke="none" />
+  </g>
+
+  <text
+    x="260"
+    y="372"
+    text-anchor="middle"
+    fill="#171717"
+    font-family="'Cormorant Garamond', 'Playfair Display', Georgia, serif"
+    font-style="italic"
+    font-weight="500"
+    font-size="78"
+    letter-spacing="3"
+  >
+    Abhaya
+  </text>
+
+  <line x1="170" y1="398" x2="350" y2="398" stroke="#171717" stroke-width="0.9" />
+
+  <text
+    x="260"
+    y="428"
+    text-anchor="middle"
+    fill="#171717"
+    font-family="'Special Elite', 'Poppins', monospace"
+    font-weight="400"
+    font-size="13"
+    letter-spacing="5"
+  >
+    HER SAFETY. HER VOICE. HER RIGHTS.
+  </text>
+
+  <text
+    x="260"
+    y="464"
+    text-anchor="middle"
+    fill="#44413E"
+    font-family="'Cormorant Garamond', Georgia, serif"
+    font-style="italic"
+    font-weight="500"
+    font-size="19"
+    letter-spacing="1.5"
+  >
+    An Initiative by SFI MACE Unit
+  </text>
+</svg>

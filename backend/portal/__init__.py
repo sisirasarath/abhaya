@@ -1,0 +1,2 @@
+"""ABHAYA Core Portal App."""
+

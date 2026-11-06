@@ -1,0 +1,326 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --abhaya-ink: #171717;
+    --abhaya-ivory: #F3EBDD;
+    --abhaya-red: #B52D27;
+    --abhaya-mustard: #D5B94D;
+    --abhaya-pink: #D58D9D;
+    --abhaya-grey: #77736B;
+    --abhaya-paper: #FAF9F5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #F3EBDD;
+    color: #171717;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: #F3EBDD;
+    color: #171717;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(rgba(23, 23, 23, 0.045) 1px, transparent 0),
+      radial-gradient(rgba(119, 115, 107, 0.035) 1px, transparent 0);
+    background-size: 22px 22px;
+    background-position: 0 0, 11px 11px;
+  }
+}
+
+@layer utilities {
+  .font-anton {
+    font-family: "Anton", Impact, sans-serif;
+  }
+  .font-bebas {
+    font-family: "Bebas Neue", Impact, sans-serif;
+  }
+  .font-oswald {
+    font-family: "Oswald", sans-serif;
+  }
+  .font-cormorant {
+    font-family: "Cormorant Garamond", Georgia, serif;
+  }
+  .font-playfair {
+    font-family: "Cormorant Garamond", Georgia, serif;
+  }
+  .font-typewriter {
+    font-family: "Special Elite", monospace;
+  }
+  .font-poppins {
+    font-family: "Oswald", "Inter", sans-serif;
+  }
+  .font-caveat {
+    font-family: "Caveat", cursive;
+  }
+  .font-sans {
+    font-family: "Inter", system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Vintage Paper & Protest Collage Surfaces */
+  .paper-sheet {
+    background-color: #FAF9F5;
+    border: 1.5px solid #171717;
+    box-shadow: 5px 5px 0px #171717;
+  }
+
+  .paper-sheet-soft {
+    background-color: #FAF9F5;
+    border: 1px solid #77736B;
+    box-shadow: 4px 4px 0px rgba(23, 23, 23, 0.12);
+  }
+
+  .newspaper-clipping {
+    background-color: #F3EBDD;
+    border: 1px solid #171717;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 23px,
+      rgba(119, 115, 107, 0.2) 24px
+    );
+  }
+
+  /* Torn Pink Movement Banner Cutout (Inspired by Reference Image 2) */
+  .pink-cutout-banner {
+    background-color: #D58D9D;
+    color: #171717;
+    padding: 0.35rem 1rem;
+    border: 1.5px solid #171717;
+    box-shadow: 3px 3px 0px #171717;
+  }
+
+  /* Mustard Poster Surface (Inspired by Reference Image 1) */
+  .mustard-poster-box {
+    background-color: #D5B94D;
+    color: #171717;
+    border: 2px solid #171717;
+    box-shadow: 6px 6px 0px #171717;
+  }
+
+  /* Protest Red Poster Surface (Inspired by Reference Image 4) */
+  .red-poster-box {
+    background-color: #B52D27;
+    color: #FAF9F5;
+    border: 2px solid #171717;
+    box-shadow: 6px 6px 0px #171717;
+  }
+
+  .polaroid-frame {
+    background-color: #FAF9F5;
+    padding: 0.65rem 0.65rem 1.75rem 0.65rem;
+    border: 1.5px solid #171717;
+    box-shadow: 6px 6px 0px #171717;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .polaroid-frame:hover {
+      transform: translateY(-4px) rotate(0deg) !important;
+      box-shadow: 8px 8px 0px #B52D27;
+    }
+  }
+
+  /* Translucent Paper Masking Tape */
+  .paper-tape {
+    position: absolute;
+    width: 5.5rem;
+    height: 1.45rem;
+    background-color: rgba(243, 235, 221, 0.86);
+    border-left: 1px dashed rgba(23, 23, 23, 0.35);
+    border-right: 1px dashed rgba(23, 23, 23, 0.35);
+    border-top: 1px solid rgba(23, 23, 23, 0.12);
+    border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+    box-shadow: 0 1px 3px rgba(23, 23, 23, 0.12);
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  .paper-tape-pink {
+    position: absolute;
+    width: 5.5rem;
+    height: 1.45rem;
+    background-color: rgba(213, 141, 157, 0.85);
+    border: 1px solid rgba(23, 23, 23, 0.25);
+    box-shadow: 0 1px 3px rgba(23, 23, 23, 0.14);
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  /* Vintage Editorial & Protest Stamps */
+  .editorial-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "Special Elite", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.75rem;
+    border: 1.5px solid #171717;
+    color: #171717;
+    background-color: #FAF9F5;
+    box-shadow: 2px 2px 0px #171717;
+  }
+
+  .editorial-stamp-burgundy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "Special Elite", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.75rem;
+    border: 1.5px solid #171717;
+    color: #FAF9F5;
+    background-color: #B52D27;
+    box-shadow: 2px 2px 0px #171717;
+  }
+
+  .editorial-stamp-mustard {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "Special Elite", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.75rem;
+    border: 1.5px solid #171717;
+    color: #171717;
+    background-color: #D5B94D;
+    box-shadow: 2px 2px 0px #171717;
+  }
+
+  /* Activist Editorial Buttons */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #171717;
+    color: #F3EBDD;
+    font-family: "Oswald", "Bebas Neue", sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.85rem;
+    border: 1.5px solid #171717;
+    box-shadow: 4px 4px 0px #B52D27;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #B52D27;
+    color: #FAF9F5;
+    border-color: #171717;
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0px #171717;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #FAF9F5;
+    color: #171717;
+    font-family: "Oswald", "Bebas Neue", sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.85rem;
+    border: 1.5px solid #171717;
+    box-shadow: 4px 4px 0px #171717;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background-color: #D5B94D;
+    color: #171717;
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0px #171717;
+  }
+
+  .btn-muted {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #F3EBDD;
+    color: #171717;
+    font-family: "Oswald", sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.2rem;
+    border: 1.5px solid #171717;
+    transition: all 0.2s ease;
+  }
+
+  .btn-muted:hover {
+    background-color: #D58D9D;
+    color: #171717;
+  }
+
+  /* Clean, Accessible Form Controls */
+  .input-editorial {
+    width: 100%;
+    background-color: #FAF9F5;
+    border: 1.5px solid #171717;
+    color: #171717;
+    padding: 0.8rem 1rem;
+    font-size: 0.875rem;
+    font-family: "Inter", system-ui, sans-serif;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+
+  .input-editorial::placeholder {
+    color: #77736B;
+  }
+
+  .input-editorial:focus {
+    border-color: #B52D27;
+    background-color: #FFFFFF;
+    box-shadow: 3px 3px 0px #B52D27;
+  }
+
+  .label-editorial {
+    display: block;
+    font-family: "Oswald", "Special Elite", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #171717;
+    margin-bottom: 0.45rem;
+    font-weight: 500;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3EBDD;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #171717;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B52D27;
+}
